@@ -1,57 +1,58 @@
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import dotenv from "dotenv";
+dotenv.config();
 
-const __dirname = new URL('.', import.meta.url).pathname
+const __dirname = new URL(".", import.meta.url).pathname;
 const vuefirePkg = JSON.parse(
-  readFileSync(resolve(__dirname, 'node_modules/vuefire/package.json'), 'utf-8')
-)
+  readFileSync(resolve(__dirname, "node_modules/vuefire/package.json"), "utf-8")
+);
 const nuxtVuefirePkg = JSON.parse(
   readFileSync(
-    resolve(__dirname, 'node_modules/nuxt-vuefire/package.json'),
-    'utf-8'
+    resolve(__dirname, "node_modules/nuxt-vuefire/package.json"),
+    "utf-8"
   )
-)
+);
 
 export default defineNuxtConfig({
   // If you set ssr to false, you can't prerender pages
-  // ssr: false,
+  ssr: true,
   devtools: { enabled: true },
-  modules: ['nuxt-vuefire'],
+  modules: ["nuxt-vuefire"],
 
   app: {
     head: {
-      title: 'Nuxt + VueFire',
+      title: "Nuxt + VueFire",
       link: [
         {
-          href: 'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css',
-          rel: 'stylesheet',
+          href: "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+          rel: "stylesheet",
         },
         {
-          rel: 'icon',
-          type: 'image/svg+xml',
-          href: '/vuefire.svg',
+          rel: "icon",
+          type: "image/svg+xml",
+          href: "/vuefire.svg",
         },
       ],
     },
   },
 
-  css: ['@/assets/style.css'],
+  css: ["@/assets/style.css"],
 
   vuefire: {
     auth: true,
     emulators: {
-      enabled: true,
+      enabled: false,
     },
     // app check is intentionally disabled as the app below doesn't exist
     config: {
-      // fake config, only works with emulator
-      apiKey: 'xxxxxxxxxxxxxxxxxxxxx_xxxxxxxxxxxx_xxxx',
-      authDomain: 'my-project.firebaseapp.com',
-      databaseURL: 'https://my-project.firebasedatabase.app',
-      projectId: 'my-project',
-      storageBucket: 'my-project.appspot.com',
-      messagingSenderId: '000000000000',
-      appId: '1:000000000000:web:0000000000000000000000',
+      apiKey: process.env.FIREBASE_API_KEY,
+      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
+      appId: process.env.FIREBASE_APP_ID,
     },
   },
 
@@ -64,13 +65,13 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { isr: true },
+    "/": { isr: true },
     // deactivate any routes you want here
-    '/login': { ssr: false },
-    '/api/**': { cors: true },
+    "/login": { ssr: false },
+    "/api/**": { cors: true },
   },
 
   experimental: {
     payloadExtraction: false,
   },
-})
+});
