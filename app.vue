@@ -12,10 +12,7 @@ const router = useRouter();
 const route = useRoute();
 
 console.log("useDocument", new Date().toISOString());
-const { data: product, promise: promise } = useDocument(
-  doc(db, "products", "VrdyaU4KrLQyPx4jLJv6")
-);
-await promise;
+const { data: product } = useDocument(doc(db, "products", "product1"));
 console.log("handle:", product.value?.handle);
 </script>
 

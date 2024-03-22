@@ -1,7 +1,5 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import dotenv from "dotenv";
-dotenv.config();
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const vuefirePkg = JSON.parse(
@@ -42,17 +40,17 @@ export default defineNuxtConfig({
   vuefire: {
     auth: true,
     emulators: {
-      enabled: false,
+      enabled: true,
     },
     // app check is intentionally disabled as the app below doesn't exist
     config: {
-      apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-      databaseURL: process.env.FIREBASE_DATABASE_URL,
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
-      appId: process.env.FIREBASE_APP_ID,
+      apiKey: "xxxxxxxxxxxxxxxxxxxxx_xxxxxxxxxxxx_xxxx",
+      authDomain: "my-project.firebaseapp.com",
+      databaseURL: "https://my-project.firebasedatabase.app",
+      projectId: "my-project",
+      storageBucket: "my-project.appspot.com",
+      messagingSenderId: "000000000000",
+      appId: "1:000000000000:web:0000000000000000000000",
     },
   },
 
